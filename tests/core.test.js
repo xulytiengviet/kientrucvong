@@ -34,6 +34,16 @@ test('base27: all characters exactly ↔ 3 balanced trits',()=>{
     assert.equal(C.tritsToSymbols(tri),symbol);
   }
 });
+test('27 distinct symbol ↔ unit vector, exact reconstruction at zero perturbation',()=>{
+  for(const ch of C.ALPHABET){
+    const vec=C.symbolToVector(ch);
+    assert.ok(Math.abs(Math.hypot(vec.x,vec.y)-1)<1e-12);
+    assert.equal(C.vectorToSymbol(vec.x,vec.y),ch);
+  }
+  const vectorMessage=C.symbolsToVectors('VIET NAM');
+  assert.equal(C.vectorsToSymbols(vectorMessage),'VIET NAM');
+  assert.throws(()=>C.vectorToSymbol(0,0),/ngoài phạm vi/);
+});
 test('zero-noise symbol → audio → symbol, including whole alphabet',()=>{
   const payload='ABCDEFGHIJKLMNOPQRSTUVWXYZ ABC XYZ';
   const pcm=A.synthesize(payload);

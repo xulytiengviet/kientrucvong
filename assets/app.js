@@ -82,8 +82,10 @@
       const c=converted();$('cvssText').textContent=c.cvss||'(chuỗi rỗng)';
       const first=C.symbolsToTrits(c.symbols).slice(0,5);
       $('tritText').textContent=first.length?first.map(t=>'['+t.join(',')+']').join(' '):'—';
+      const vector=c.symbols?C.symbolToVector(c.symbols[0]):null;
+      $('symbolVector').textContent=vector?`(${vector.x.toFixed(4)}, ${vector.y.toFixed(4)})`:'—';
       return c;
-    }catch(error){$('cvssText').textContent='KHÔNG HỢP LỆ: '+error.message;$('tritText').textContent='—';return null;}
+    }catch(error){$('cvssText').textContent='KHÔNG HỢP LỆ: '+error.message;$('tritText').textContent='—';$('symbolVector').textContent='—';return null;}
   }
   $('sourceText').addEventListener('input',updateSymbols);updateSymbols();
   function showDecoded(decoded){

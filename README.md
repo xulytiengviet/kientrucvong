@@ -42,7 +42,7 @@ Lưới 6 × 3 × 6 = 108 ô → Z108 ≅ Z4 × Z27 → 2 bit + 3 trit
 
 - `index.html`: giao diện thử nghiệm có thể chạy tại GitHub Pages.
 - `assets/style.css`, `assets/app.js`: thiết kế giao diện, đồ họa Canvas, nút phát/tải/giải mã WAV.
-- `src/core.js`: CRT, vector vòng, miền 72 ô, Base27/trit.
+- `src/core.js`: CRT, vector vòng, miền 72 ô, Base27/trit, vector 27 ký hiệu ↔ ký hiệu.
 - `src/audio.js`: giao thức 27-FSK, PCM WAV, Goertzel, CRC-16, AWGN.
 - `vendor/cvnss4_0_converter.v5.js`: converter audit-safe **nguyên bản** do người dùng cung cấp.
 - `tests/core.test.js`: kiểm thử đơn vị và tính chất.

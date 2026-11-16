@@ -96,7 +96,7 @@ $$
  j=(t_0+1)+3(t_1+1)+9(t_2+1), \qquad t_i\in\{-1,0,1\}.
 $$
 
-Đây là một song ánh: $27=3^3$. Nếu muốn một **vector tín hiệu hình học** cho ký hiệu, có thể định nghĩa $\mathbf v_j=(\cos(2\pi j/27),\sin(2\pi j/27))$, và phép lượng tử hóa góc ngược khi không nhiễu. Tuy nhiên, trong bộ truyền thử nghiệm chúng tôi dùng **27-FSK**, tức mỗi ký hiệu ứng với một tần số: 
+Đây là một song ánh: $27=3^3$. Nếu muốn một **vector tín hiệu hình học** cho ký hiệu, có thể định nghĩa $\mathbf v_j=(\cos(2\pi j/27),\sin(2\pi j/27))$, và phép lượng tử hóa góc ngược khi không nhiễu. Mã `symbolToVector` và `vectorToSymbol` hiện thực hóa phép song ánh này với kiểm tra chuẩn hóa/độ lệch vector; `npm test` duyệt đủ 27 ký hiệu và khôi phục chuỗi vector khi tọa độ không bị biến đổi. Tuy nhiên, trong bộ truyền thử nghiệm chúng tôi dùng **27-FSK**, tức mỗi ký hiệu ứng với một tần số: 
 
 $$
  s_j(t)=A\sin(2\pi(f_0+j\Delta f)t),\quad 0\leq t<T_s.

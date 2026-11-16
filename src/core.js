@@ -61,6 +61,29 @@
     for (const ch of normalized) charToValue(ch);
     return normalized;
   }
+  function symbolToVector(symbol) {
+    const j = charToValue(symbol);
+    const theta = 2 * Math.PI * j / 27;
+    return { index: j, angleDeg: 360 * j / 27, x: Math.cos(theta), y: Math.sin(theta) };
+  }
+  function vectorToSymbol(x, y, tolerance = 1e-6) {
+    if (!Number.isFinite(x) || !Number.isFinite(y) || !Number.isFinite(tolerance) || tolerance < 0) {
+      throw new RangeError('Expected finite vector coordinates and nonnegative tolerance.');
+    }
+    const angle = mod(Math.atan2(y, x), 2 * Math.PI);
+    const j = Math.round(angle * 27 / (2 * Math.PI)) % 27;
+    const expected = symbolToVector(ALPHABET[j]);
+    if (Math.hypot(x - expected.x, y - expected.y) > tolerance) {
+      throw new RangeError('Vector ngoài phạm vi một điểm mã Base27; không thể giải mã chính xác.');
+    }
+    return ALPHABET[j];
+  }
+  function symbolsToVectors(text) {
+    return [...normalizeSymbols(text)].map(symbolToVector);
+  }
+  function vectorsToSymbols(vectors, tolerance = 1e-6) {
+    return vectors.map(v => vectorToSymbol(v.x, v.y, tolerance)).join('');
+  }
   function symbolsToTrits(text) {
     return [...normalizeSymbols(text)].map(c => {
       const v = charToValue(c);
@@ -73,5 +96,5 @@
       return ALPHABET[(t[0]+1) + 3*(t[1]+1) + 9*(t[2]+1)];
     }).join('');
   }
-  return Object.freeze({ N, ALPHABET, mod, crt, uncrt, digits, fromDigits, position, validVowelSlot, charToValue, normalizeSymbols, symbolsToTrits, tritsToSymbols });
+  return Object.freeze({ N, ALPHABET, mod, crt, uncrt, digits, fromDigits, position, validVowelSlot, charToValue, normalizeSymbols, symbolToVector, vectorToSymbol, symbolsToVectors, vectorsToSymbols, symbolsToTrits, tritsToSymbols });
 });
