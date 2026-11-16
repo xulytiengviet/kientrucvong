@@ -3,7 +3,7 @@
 Bản nghiên cứu nguồn mở (MIT) về **vòng cyclic 108 trạng thái**, **2 bit + 3 trit cân bằng**, phép quay **180°**, ánh xạ vector trên **360°**, và đường truyền âm thanh **ký hiệu ↔ WAV**.
 
 **Demo:** https://xulytiengviet.github.io/kientrucvong/ *(cần bật GitHub Pages: branch `main`, thư mục `/ (root)`).*  
-**Preprint:** [`paper/preprint.md`](paper/preprint.md) — bản thảo chưa bình duyệt.
+**Preprint:** [PDF](paper/preprint.pdf) · [Markdown](paper/preprint.md) — bản thảo chưa bình duyệt.
 
 ## Chạy nhanh
 
