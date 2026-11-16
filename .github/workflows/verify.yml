@@ -1,0 +1,23 @@
+name: Verify Ring-108 and 27-FSK
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Test mathematical invariants and audio codec
+        run: npm test
+      - name: Reproduce seeded AWGN benchmark
+        run: node experiments/benchmark.js
+      - name: Export AWGN results
+        uses: actions/upload-artifact@v4
+        with:
+          name: awgn-results
+          path: experiments/results.json
