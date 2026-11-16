@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#081017" />
+  <meta name="description" content="Kiến trúc vòng 108 trạng thái, CVNSS4.0, CRT, 3 trit Base27 và truyền nhận âm thanh 27-FSK có kiểm chứng." />
+  <title>Kiến trúc Vòng · CVNSS4.0 × Base27 × Ternary</title>
+  <link rel="stylesheet" href="./assets/style.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <header class="site-header">
+    <div class="shell header-line">
+      <a class="brand" href="#top" aria-label="Đầu trang Kiến trúc Vòng"><span class="brand-mark">◎</span><span>KIEN<span class="brand-highlight">TRUC</span>VONG<span class="brand-period">.</span><small>RESEARCH LAB / 001</small></span></a>
+      <nav class="main-nav" aria-label="Điều hướng"><a href="#model">Mô hình</a><a href="#audio">Signal ↔ Symbol</a><a href="#proof">Toán học</a><a href="#research">Preprint</a></nav>
+      <a class="header-github" href="https://github.com/xulytiengviet/kientrucvong" target="_blank" rel="noopener">GitHub <span aria-hidden="true">↗</span></a>
+    </div>
+  </header>
+  <main id="top">
+    <section class="hero shell">
+      <div class="hero-left">
+        <p class="eyebrow"><span class="status-dot"></span> OPEN RESEARCH · VERSION 1.0 / NOV 2026</p>
+        <h1>NGÔN NGỮ<br />TRÊN <em>VÒNG</em><br /><span>360 ĐỘ.</span></h1>
+        <p class="hero-lead">Một hệ tọa độ rời rạc cho ký hiệu tiếng Việt, mở rộng đến <strong>vector số phức</strong> và <strong>tín hiệu âm thanh đảo ngược</strong> — với định lý, thuật toán và phép đo có thể tái lập.</p>
+        <div class="hero-actions"><a class="button button-primary" href="#model">Khám phá mô phỏng <span>↘</span></a><a class="button button-secondary" href="#audio">Thử biến ký hiệu thành sóng <span>↗</span></a></div>
+        <div class="hero-meta"><span><b>AUTHORED BY</b> Long Ngo</span><span><b>RESEARCH AREA</b> Symbolic Signal Processing</span></div>
+      </div>
+      <div class="hero-right">
+        <div class="hero-orb"><canvas id="heroCanvas" width="640" height="640" aria-label="Minh họa vòng quay 108 trạng thái"></canvas><div class="hero-orb-inner"><span>2π</span><small>108 STATES</small></div></div>
+        <p class="orb-caption">φ(n) = e<sup>i·2πn/108</sup> <span>↗</span></p>
+      </div>
+    </section>
+    <section class="metric-strip" aria-label="Cấu trúc toán học"><div class="shell metric-grid">
+      <div class="metric"><div>108 <span>STATES</span></div><small>6 × 18 / vòng cyclic</small></div>
+      <div class="metric"><div>27 <span>SYMBOLS</span></div><small>3³ = 27 / Base27</small></div>
+      <div class="metric"><div>72 <span>VALID SLOTS</span></div><small>trong lưới nguyên âm giả định</small></div>
+      <div class="metric"><div>180<span>° FLIP</span></div><small>54 bước / nhân −1</small></div>
+    </div></section>
+    <section class="section shell" id="model">
+      <div class="section-heading"><div><span class="section-index">01 — GEOMETRIC MODEL</span><h2>Giải phẫu một <em>vòng tròn.</em></h2></div><p>Thay đổi trạng thái, vị trí và offset để quan sát phép quay. Mỗi nấc = 360°/108 = 3⅓°.</p></div>
+      <div class="lab-grid">
+        <div class="lab-visual panel">
+          <div class="panel-topline"><span class="light-indicator"></span> CYCLIC STATE / S¹ <span class="panel-code">108 / 360°</span></div>
+          <canvas id="ringCanvas" width="800" height="800" aria-label="Vòng tròn 108 trạng thái, mốc 0 90 180 270 độ"></canvas>
+          <div class="ring-legend"><span><i class="dot valid"></i> 72 vị trí trong bảng cấu trúc</span><span><i class="dot inactive"></i> 36 ô không hợp lệ</span><span><i class="dot active"></i> vector hiện hành</span></div>
+        </div>
+        <div class="lab-controls panel"><div class="panel-topline">INTERACTIVE PARAMETERS <span class="panel-code">LIVE</span></div>
+          <div class="control"><label for="baseState">Trạng thái nguồn <output id="baseValue">21</output></label><input type="range" id="baseState" min="0" max="107" value="21" /></div>
+          <div class="control"><label for="positionInput">Vị trí câu (p) <output id="positionValue">0</output></label><input type="range" id="positionInput" min="0" max="107" value="0" /></div>
+          <div class="control"><label for="offsetInput">Offset quay (k) <output id="offsetValue">0</output></label><input type="range" id="offsetInput" min="0" max="107" value="0" /></div>
+          <div class="action-row"><button class="button button-outline" id="flipButton">↻ Xoay 180°</button><button class="button button-outline" id="resetButton">Đặt lại</button></div>
+          <div class="result-tile"><div><small>TRẠNG THÁI SAU PHÉP QUAY</small><strong id="stateValue">21</strong></div><div><small>GÓC CỰC</small><strong id="angleValue">70.00°</strong></div></div>
+          <div class="value-stack"><span>φ = (x, y)</span><code id="vectorValue">(0.3420, 0.9397)</code></div>
+          <div class="value-stack"><span>CRT · Z₄ × Z₂₇</span><code id="crtValue">(1, 21)</code></div>
+          <div class="value-stack"><span>2 BIT + 3 TRIT CÂN BẰNG</span><code id="digitsValue">[1,0] · [-1,0,1]</code></div>
+          <p class="small-note" id="slotText">Miền 72 ô là lưới phân loại trừu tượng, không thay cho mã hóa âm tiết đầy đủ.</p>
+        </div>
+      </div>
+    </section>
+    <section class="bridge shell" aria-label="Pipeline"><span class="section-index">THE BRIDGE / END-TO-END</span><div class="bridge-items"><span>TIẾNG VIỆT</span><b>→</b><span>CVNSS4.0</span><b>→</b><span>BASE27 / 3 TRIT</span><b>→</b><span>27-FSK WAV</span><b>→</b><span>BASE27</span><b>→</b><span>CVNSS4.0</span></div><p>Bộ giải điều chế chỉ phục hồi ký hiệu chính xác khi tín hiệu được nhận đúng. Bộ chuyển đổi CVNSS có thể còn nhập nhằng khi trả về chữ Quốc Ngữ.</p></section>
+    <section class="section shell" id="audio">
+      <div class="section-heading"><div><span class="section-index">02 — SIGNAL ↔ SYMBOL ENGINE</span><h2>Nghe được <em>ký hiệu.</em></h2></div><p>Truyền 27 ký hiệu bằng 27 tần số FSK trực giao. Tải WAV, phân tích phổ và kiểm tra CRC để xác minh vòng đi–về.</p></div>
+      <div class="audio-grid">
+        <div class="panel audio-main"><div class="panel-topline">SOURCE / CONVERTER v5.0 <span class="panel-code">AUDIT-SAFE</span></div>
+          <label class="field-label" for="sourceText">Chữ Quốc Ngữ đầu vào</label><textarea id="sourceText" rows="3" spellcheck="false">Tiếng Việt có dấu</textarea>
+          <div class="mapping-line"><div><small>CVNSS4.0 / ASCII</small><div id="cvssText" class="mapping-code">Tizb Vidf coj zaub</div></div><div><small>BASE27 / TRIT ĐẦU TIÊN</small><div id="tritText" class="mapping-code">[−1,−1,−1]</div></div></div>
+          <div class="action-row wrap-actions"><button id="encodeButton" class="button button-primary">▶ Tạo sóng và WAV</button><button id="decodeButton" class="button button-outline">↻ Giải mã WAV vừa tạo</button><button id="downloadButton" class="button button-outline" disabled>↓ Tải file WAV</button></div>
+          <div class="upload-box"><label for="waveUpload">↑ Tải WAV vào để giải mã</label><input id="waveUpload" type="file" accept=".wav,audio/wav" /><small>PCM 16-bit · mono · 24 kHz · WAV được tạo theo giao thức demo này</small></div>
+          <div class="wave-panel"><div class="wave-caption">WAVEFORM / PCM SAMPLE <span id="waveDuration">NO SIGNAL</span></div><canvas id="waveCanvas" width="1100" height="230" aria-label="Dạng sóng âm thanh"></canvas><audio id="audioPlayer" controls preload="metadata" style="width:100%;margin-top:16px" aria-label="Nghe sóng ký hiệu"></audio></div>
+        </div>
+        <div class="panel audio-side"><div class="panel-topline">TELEMETRY / CHANNEL <span class="panel-code">TEST</span></div>
+          <div class="data-card"><small>TRẠNG THÁI GIẢI MÃ</small><strong id="audioStatus" class="status-standby">CHƯA CHẠY</strong><p id="audioMessage">Hãy tạo tín hiệu âm thanh từ văn bản.</p></div>
+          <div class="data-card"><small>CHUỖI KÝ HIỆU THU ĐƯỢC</small><code id="decodedText">—</code></div>
+          <div class="data-card"><small>UNICODE GIẢI MÃ THEO CANONICAL POLICY</small><span id="unicodeText">—</span><p id="unicodeNotice">Một số chuỗi CVNSS có nhiều cách giải mã Unicode.</p></div>
+          <div class="control snr-control"><label for="snrInput">SNR mô phỏng (AWGN) <output id="snrValue">22 dB</output></label><input id="snrInput" type="range" min="-20" max="35" value="22" /></div>
+          <button id="noiseTest" class="button button-secondary button-full">Chạy qua kênh nhiễu AWGN</button>
+          <div class="data-card"><small>TOÀN VẸN TÍN HIỆU</small><div id="channelResult" class="mono-value">CRC16: —</div><div id="marginResult" class="mono-value muted">Khoảng cách phổ: —</div></div>
+          <p class="small-note">“100%” ở đây chỉ có thể là tỉ lệ thành công trên một tập thử nghiệm cụ thể, không phải bảo đảm cho mọi tín hiệu vật lý.</p>
+        </div>
+      </div>
+    </section>
+    <section class="section shell" id="proof">
+      <div class="section-heading"><div><span class="section-index">03 — FORMAL FOUNDATIONS</span><h2>Cái gì <em>được chứng minh?</em></h2></div><p>Bốn mệnh đề đại số có chứng minh khép kín. Không suy diễn từ chúng sang hiệu năng học máy hoặc chất lượng nhận dạng tiếng nói.</p></div>
+      <div class="theorem-grid">
+        <article class="theorem"><span>THEOREM / 01</span><h3>Đẳng cấu CRT</h3><div class="math">ℤ₁₀₈ ≅ ℤ₄ × ℤ₂₇</div><p>Vì gcd(4, 27) = 1. Mỗi trạng thái có cặp phần dư duy nhất và một biểu diễn 2 bit + 3 trit cân bằng.</p></article>
+        <article class="theorem"><span>THEOREM / 02</span><h3>Đường tròn đơn vị</h3><div class="math">φ(n) = e<sup>i2πn/108</sup></div><p>|φ(n)| = 1. Các trạng thái được nhúng vào 108 nghiệm bậc 108 của đơn vị, không mang ngữ nghĩa mặc định.</p></article>
+        <article class="theorem"><span>THEOREM / 03</span><h3>Phép quay 180 độ</h3><div class="math">φ(n + 54) = −φ(n)</div><p>Vì e<sup>iπ</sup> = −1. Đối cực là tính chất hình học, không đồng nghĩa “trái nghĩa” trong ngôn ngữ.</p></article>
+        <article class="theorem"><span>THEOREM / 04</span><h3>Phép dời đồng thời</h3><div class="math">(a + k) − (b + k) ≡ a − b</div><p>Bất biến khoảng cách nhóm theo modulo 108. Đây là phép quay một tần số rời rạc, không tương đương RoPE đa tần.</p></article>
+      </div>
+      <div class="note-bar"><strong>Lưu ý về tính “tối ưu”</strong><p>27 = 3³ là mã 3 trit đúng kích thước cho bảng chữ 26 ký tự + khoảng trắng. Lựa chọn 27-FSK trong ví dụ ưu tiên dễ tái lập chứ chưa được chứng minh tối ưu về băng thông, BER, công suất hoặc độ trễ.</p></div>
+    </section>
+    <section class="section research-section shell" id="research"><div><span class="section-index">04 — OPEN SCIENCE / PREPRINT</span><h2>Một mô hình, <em>nhiều giới hạn rõ ràng.</em></h2><p>Preprint nêu giả thiết, định nghĩa, chứng minh, mã nguồn tái lập, lược đồ tín hiệu và phép thử có nhiễu. Chỉ công bố số liệu đo thực tế; không tuyên bố “100% trong mọi điều kiện”.</p><div class="hero-actions"><a class="button button-primary" href="./paper/preprint.md">Đọc preprint (Markdown) <span>↗</span></a><a class="button button-secondary" href="https://github.com/xulytiengviet/kientrucvong" target="_blank" rel="noopener">Xem mã nguồn ↗</a></div></div><div class="research-card"><div class="research-card-top">REPRODUCIBILITY CHECKLIST <span>2026</span></div><div>✓ Tất cả 108 trạng thái CRT</div><div>✓ 27 ký hiệu ↔ 3 trit</div><div>✓ WAV PCM / phân tích Goertzel</div><div>✓ CRC-16 phát hiện lỗi khung</div><div>✓ Bộ kiểm thử converter v5</div><div>○ Thu âm qua microphone thực</div><div>○ BER / SER theo SNR diện rộng</div><div>○ So sánh với RoPE trên tập dữ liệu</div></div></section>
+  </main>
+  <footer><div class="shell footer-grid"><div><div class="brand brand-footer"><span class="brand-mark">◎</span><span>KIEN<span class="brand-highlight">TRUC</span>VONG.</span></div><p>Mathematics first. Measurements second. Claims third.</p></div><div><p>CVNSS4.0 · Ternary · CRT · Audio-FSK</p><small>Research prototype, MIT · Long Ngo · 2026</small></div></div></footer>
+  <script src="./vendor/cvnss4_0_converter.v5.js"></script>
+  <script src="./src/core.js"></script>
+  <script src="./src/audio.js"></script>
+  <script src="./assets/app.js"></script>
+</body>
+</html>

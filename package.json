@@ -1,0 +1,12 @@
+{
+  "name": "kientrucvong",
+  "version": "1.0.0",
+  "private": true,
+  "description": "CVNSS4.0 ring algebra and deterministic 27-FSK signal-symbol reproducible demos",
+  "license": "MIT",
+  "scripts": {
+    "test": "node --test tests/*.test.js",
+    "serve": "python -m http.server 8000"
+  },
+  "engines": {"node": ">=18"}
+}

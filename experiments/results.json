@@ -1,0 +1,96 @@
+{
+  "metadata": {
+    "version": "1.0.0",
+    "date": "2026-11-16",
+    "channel": "discrete AWGN only, exact symbol start/length known; not acoustic over-air",
+    "sample_rate_hz": 24000,
+    "samples_per_symbol": 2400,
+    "base_frequency_hz": 600,
+    "delta_frequency_hz": 80,
+    "modulation": "27-FSK",
+    "trials_per_snr": 24,
+    "seed_initial": 20261116
+  },
+  "results": [
+    {
+      "snr_dB": -35,
+      "frames": 24,
+      "frame_success": 0,
+      "frame_success_pct": 0,
+      "symbol_errors": 481,
+      "symbols": 522,
+      "ser": 0.921455938697318,
+      "crc_rejected": 24
+    },
+    {
+      "snr_dB": -30,
+      "frames": 24,
+      "frame_success": 0,
+      "frame_success_pct": 0,
+      "symbol_errors": 421,
+      "symbols": 522,
+      "ser": 0.8065134099616859,
+      "crc_rejected": 24
+    },
+    {
+      "snr_dB": -25,
+      "frames": 24,
+      "frame_success": 0,
+      "frame_success_pct": 0,
+      "symbol_errors": 235,
+      "symbols": 522,
+      "ser": 0.4501915708812261,
+      "crc_rejected": 24
+    },
+    {
+      "snr_dB": -20,
+      "frames": 24,
+      "frame_success": 13,
+      "frame_success_pct": 54.166666666666664,
+      "symbol_errors": 14,
+      "symbols": 522,
+      "ser": 0.02681992337164751,
+      "crc_rejected": 11
+    },
+    {
+      "snr_dB": -15,
+      "frames": 24,
+      "frame_success": 24,
+      "frame_success_pct": 100,
+      "symbol_errors": 0,
+      "symbols": 522,
+      "ser": 0,
+      "crc_rejected": 0
+    },
+    {
+      "snr_dB": -10,
+      "frames": 24,
+      "frame_success": 24,
+      "frame_success_pct": 100,
+      "symbol_errors": 0,
+      "symbols": 522,
+      "ser": 0,
+      "crc_rejected": 0
+    },
+    {
+      "snr_dB": 0,
+      "frames": 24,
+      "frame_success": 24,
+      "frame_success_pct": 100,
+      "symbol_errors": 0,
+      "symbols": 522,
+      "ser": 0,
+      "crc_rejected": 0
+    },
+    {
+      "snr_dB": 20,
+      "frames": 24,
+      "frame_success": 24,
+      "frame_success_pct": 100,
+      "symbol_errors": 0,
+      "symbols": 522,
+      "ser": 0,
+      "crc_rejected": 0
+    }
+  ]
+}
