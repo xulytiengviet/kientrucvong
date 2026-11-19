@@ -5,6 +5,12 @@ Bản nghiên cứu nguồn mở (MIT) về **vòng cyclic 108 trạng thái**, 
 **Demo:** https://xulytiengviet.github.io/kientrucvong/ *(cần bật GitHub Pages: branch `main`, thư mục `/ (root)`).*  
 **Preprint:** [PDF](paper/preprint.pdf) · [Markdown](paper/preprint.md) — bản thảo chưa bình duyệt.
 
+## Ứng dụng mới: Chipless RFID × LoRaWAN Việt Nam
+
+[**Vietnam Field Lab: A/B chống nhiễu, chi phí/năng lượng, AS923-2 và Ring-108**](https://xulytiengviet.github.io/LoRaWAN-Chipless/vn-lab.html) · [Hướng dẫn tích hợp](applications/chipless-lorawan-vn.md)
+
+Đây là ứng dụng riêng ở lớp **mã sự kiện**, không dùng vòng như một bằng chứng cải thiện tính năng RF. Không đánh đồng 27-FSK âm thanh với PHY LoRaWAN.
+
 ## Chạy nhanh
 
 ```bash
