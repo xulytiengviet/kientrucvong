@@ -11,6 +11,24 @@ Bản nghiên cứu nguồn mở (MIT) về **vòng cyclic 108 trạng thái**, 
 
 Đây là ứng dụng riêng ở lớp **mã sự kiện**, không dùng vòng như một bằng chứng cải thiện tính năng RF. Không đánh đồng 27-FSK âm thanh với PHY LoRaWAN.
 
+## TinyRAG / AtlasKV × Ring108 — Context Packing Lab
+
+**[Mở trang demo tương tác](https://xulytiengviet.github.io/kientrucvong/tinyrag.html)** · [Nguồn TinyRAG](https://github.com/xulytiengviet/TinyRAG) · [Mã mô phỏng](src/tinyrag-lab.js)
+
+Demo chạy hoàn toàn trong trình duyệt, không cần backend, API key hoặc GPU. Đổi câu hỏi, sửa kho tri thức, điều chỉnh **ngân sách context** và **số nguồn** để chạy đồng thời 3 phương pháp:
+
+1. **A — Full-stuff order:** lấy các đoạn đầy đủ theo thứ tự nguồn cho tới khi hết ngân sách ước tính.
+2. **B — Lexical RAG:** chấm điểm trùng từ khóa không dấu ở nội dung/tiêu đề/chủ đề rồi chọn đoạn đầy đủ.
+3. **C — Extractive packing:** trích 1 câu nguyên văn có độ khớp cao từ từng nguồn, giảm lặp chủ đề và tối ưu điểm/chi phí trong hạn mức.
+
+Bảng so sánh hiển thị số đoạn, token **ước tính** (`ceil(UTF-8 bytes / 4)`), độ phủ từ khóa truy vấn và số nhóm chủ đề. Có thể xem trích dẫn nguồn, sao chép context thực và xuất JSON để tái lập.
+
+**Cầu nối Ring108 thật:** lấy trích đoạn đã chọn → UTF-8 → mỗi byte thành **2 chữ số Base27** → `RingCore.symbolsToTrits()` (3 trit cân bằng/ký hiệu), rồi giải ngược và xác minh toàn vẹn Unicode. Phép CRT `RingCore.uncrt(0, symbolIndex)` cho trạng thái vòng minh họa.
+
+**Giới hạn bắt buộc:** repo TinyRAG hiện là AtlasKV dùng Python, encoder và checkpoint; HTML **không** triển khai attention/KV injection, KG2KV training, học embedding, hierarchical retrieval hoặc benchmark GPU của AtlasKV. Đây chỉ là baseline truy xuất từ khóa được **lấy cảm hứng** từ tổ chức kiến thức AtlasKV. Base27/trit/CRT là biểu diễn ký hiệu, không có bằng chứng tự làm giảm token trong LLM. CVNSS4.0 không được dùng để khẳng định Unicode roundtrip khi tồn tại nhập nhằng.
+
+Kiểm thử tích hợp nằm ở `tests/tinyrag.test.js`, chạy qua `npm test` trong CI hiện hữu.
+
 ## Chạy nhanh
 
 ```bash
